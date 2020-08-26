@@ -2,16 +2,13 @@
 
 namespace PhotoStock.Common
 {	
-	public class Categories
+	public enum Categories
 	{
-		public enum Type
-		{
-			Nature,
-			Animals,
-			Human,
-			Weapon,
-			Thing,
-			Other
-		}
+		Nature,
+		Animals,
+		Human,
+		Weapon,
+		Thing,
+		Other
 	}
 }

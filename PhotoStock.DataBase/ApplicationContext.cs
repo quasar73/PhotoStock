@@ -4,7 +4,7 @@ using PhotoStock.DataBase.Models;
 
 namespace PhotoStock.DataBase
 {
-	class ApplicationContext : IdentityDbContext
+	public class ApplicationContext : IdentityDbContext<User>
 	{
 		public DbSet<Photo> Photos { get; set; }
 		public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)

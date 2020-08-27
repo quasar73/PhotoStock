@@ -11,7 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\PhotoStock.Common\PhotoStock.Common.csproj" />
     <ProjectReference Include="..\PhotoStock.DataBase\PhotoStock.DataBase.csproj" />
-    <ProjectReference Include="..\PhotoStock.Web\PhotoStock.Web.csproj" />
   </ItemGroup>
 
 </Project>

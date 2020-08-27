@@ -20,11 +20,13 @@ namespace PhotoStock.Web.Controllers
     {
         private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
         private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
 
-        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<User> userManager)
+        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             this.jwtBearerTokenSettings = jwtTokenOptions.Value;
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         [HttpPost]

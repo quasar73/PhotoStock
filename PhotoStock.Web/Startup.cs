@@ -12,6 +12,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using PhotoStock.Common;
+using PhotoStock.Logic.Interfaces;
+using PhotoStock.Logic.Services;
 
 
 namespace PhotoStock.Web
@@ -61,6 +63,7 @@ namespace PhotoStock.Web
 					IssuerSigningKey = new SymmetricSecurityKey(key),
 				};
 			});
+			services.AddTransient<IImportService, PhotoImport>();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

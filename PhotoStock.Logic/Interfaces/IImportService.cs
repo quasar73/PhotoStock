@@ -7,8 +7,8 @@ using PhotoStock.Common;
 
 namespace PhotoStock.Logic.Interfaces
 {
-	interface IImportService
+	public interface IImportService
 	{
-		Task ImportPhoto(IFormFile file, string userId, Categories category);
+		Task ImportPhoto(IFormFile file, string userId, Categories category, string webrootpath);
 	}
 }

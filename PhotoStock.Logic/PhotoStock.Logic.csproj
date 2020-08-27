@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Interfaces\" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PhotoStock.Common\PhotoStock.Common.csproj" />
+    <ProjectReference Include="..\PhotoStock.DataBase\PhotoStock.DataBase.csproj" />
   </ItemGroup>
 
 </Project>

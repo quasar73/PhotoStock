@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PhotoStock.DataBase.Repositories
 {
-	interface IRepository<TEntity>
+	public interface IRepository<TEntity>
 	{
 		Task<IEnumerable> GetListAsync();
 		Task CreateAsync(TEntity entity);

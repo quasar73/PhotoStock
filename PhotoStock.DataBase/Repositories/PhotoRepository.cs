@@ -9,7 +9,7 @@ using PhotoStock.DataBase.Models;
 
 namespace PhotoStock.DataBase.Repositories
 {
-	class PhotoRepository : IRepository<Photo>
+	public class PhotoRepository : IRepository<Photo>
 	{
 		private readonly ApplicationContext context;
 		public PhotoRepository(ApplicationContext context)

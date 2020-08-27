@@ -9,6 +9,7 @@ using PhotoStock.DataBase.Models;
 using PhotoStock.Common;
 using PhotoStock.DataBase.Repositories;
 using PhotoStock.DataBase;
+using ImageMagick;
 
 namespace PhotoStock.Logic.Services
 {
@@ -23,11 +24,13 @@ namespace PhotoStock.Logic.Services
 		{
 			if(file != null)
 			{
-				string path = "/Photos/" + file.FileName;
-				using(var fileStream = new FileStream(webrootpath + path, FileMode.Create))
+				string path = webrootpath + "/Photos/" + file.FileName;
+				using(var fileStream = new FileStream(path, FileMode.Create))
 				{
 					await file.CopyToAsync(fileStream);
 				}
+				var optimizer = new ImageOptimizer();
+				optimizer.Compress(path);
 				Photo photo = new Photo()
 				{
 					Name = Guid.NewGuid().ToString(),

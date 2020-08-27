@@ -33,7 +33,7 @@ namespace PhotoStock.Web.Controllers
         public async Task<IActionResult> Import([FromForm] ImportViewModel importVM)
         {
             string userId = userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name)?.Id;
-            if (importVM != null && userId != null && importVM.File != null)
+            if (ModelState.IsValid && userId != null)
             {
                 await importService.ImportPhoto(importVM.File, userId, importVM.Category, env.WebRootPath);
                 return Ok(new { Message = "Photo uploaded successfully!" });

@@ -38,7 +38,7 @@ export class AuthenticationService implements AuthService {
       .getRefreshToken()
       .pipe(
         switchMap((refreshToken: string) =>
-          this.http.post(environment.refreshUrl, { refreshToken })
+          this.http.post(environment.apiUrl + 'account/refresh', { refreshToken })
         ),
         tap((tokens: AccessData) => this.saveAccessData(tokens)),
         catchError((err) => {
@@ -59,12 +59,12 @@ export class AuthenticationService implements AuthService {
 
 
   public login(loginVM: Login): Observable<any> {
-    return this.http.post(environment.loginUrl, loginVM)
+    return this.http.post(environment.apiUrl + 'account/login', loginVM)
     .pipe(tap((tokens: AccessData) => this.saveAccessData(tokens)));
   }
 
   public register(registrationVM: Registration) {
-    return this.http.post(environment.registerUrl, registrationVM);
+    return this.http.post(environment.apiUrl + 'account/register', registrationVM);
   }
 
   public logout(): void {

@@ -4,9 +4,7 @@
 
 export const environment = {
   production: false,
-  loginUrl: `https://localhost:44384/api/auth/login`,
-  registerUrl: `https://localhost:44384/api/auth/register`,
-  refreshUrl: `http://localhost:3000/refresh`
+  apiUrl: 'https://localhost:44384/api/'
 };
 
 /*

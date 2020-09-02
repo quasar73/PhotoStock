@@ -12,7 +12,8 @@
     </mat-form-field>
   </form>
   <br/>
-  <button mat-raised-button color="primary" (click)="login()">Login</button>
+  <button *ngIf="!inProgress" mat-raised-button color="primary" (click)="login()">Login</button>
+  <mat-spinner *ngIf="inProgress" [diameter]="32"></mat-spinner>
   <div class="mt-4">
     <span class="text-danger">{{ message }}</span>
   </div>

@@ -17,6 +17,7 @@ export class RegistrationComponent implements OnInit {
     "confirmPassword": new FormControl("", [Validators.required])
   });
   isRegistrationComplete: boolean = false;
+  inProgress: boolean = false;
 
   constructor(private authService: AuthenticationService) { }
 
@@ -30,8 +31,13 @@ export class RegistrationComponent implements OnInit {
       password: this.registrationForm.controls['password'].value,
       confirmPassword: this.registrationForm.controls['confirmPassword'].value
     }
+    this.inProgress = true;
     this.authService.register(registrationVM).subscribe(() => {
       this.isRegistrationComplete = true;
+      this.inProgress = false;
+    },
+    () => {
+      this.inProgress = false;
     });
   }
 }

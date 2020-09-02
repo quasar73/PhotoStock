@@ -22,7 +22,8 @@
     </mat-form-field>
   </form>
   <br/>
-  <button mat-raised-button color="primary" (click)="register()">Register</button>
+  <button  *ngIf="!inProgress" mat-raised-button color="primary" (click)="register()">Register</button>
+  <mat-spinner *ngIf="inProgress" [diameter]="32"></mat-spinner>
   <br/>
   <div *ngIf="isRegistrationComplete" class="mt-4">
     <div class="text-success">

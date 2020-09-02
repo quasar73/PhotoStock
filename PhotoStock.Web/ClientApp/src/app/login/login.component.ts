@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     "password": new FormControl("", [Validators.required])
   });
   message: string;
+  inProgress: boolean = false;
 
   constructor(private router: Router,
     private authService: AuthenticationService,
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
+    this.inProgress = true;
     let loginVM: Login = {
       username: this.loginForm.controls['userName'].value,
       password: this.loginForm.controls['password'].value
@@ -35,9 +37,11 @@ export class LoginComponent implements OnInit {
       .subscribe(() => {
         this.stateService.update(true);
         this.router.navigate(['/']);
+        this.inProgress = false;
       },
       () => {
        this.message = 'Wrong login or passwrod!';
+       this.inProgress = false;
       });
   }
 }

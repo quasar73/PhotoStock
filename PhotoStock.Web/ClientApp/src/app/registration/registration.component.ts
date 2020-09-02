@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Registration } from '../shared/models/registration.model';
 import { AuthenticationService } from '../shared/authentication/authentication.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
@@ -9,7 +10,12 @@ import { AuthenticationService } from '../shared/authentication/authentication.s
 })
 export class RegistrationComponent implements OnInit {
 
-  registration: Registration = new Registration();
+  registrationForm: FormGroup = new FormGroup({
+    "userName": new FormControl("", [Validators.required]),
+    "email": new FormControl("", [Validators.required, Validators.email]) ,
+    "password": new FormControl("", [Validators.required]),
+    "confirmPassword": new FormControl("", [Validators.required])
+  });
   isRegistrationComplete: boolean = false;
 
   constructor(private authService: AuthenticationService) { }
@@ -18,9 +24,14 @@ export class RegistrationComponent implements OnInit {
   }
 
   register(): void{
-    this.authService.register(this.registration).subscribe(() => {
+    let registrationVM: Registration = {
+      username: this.registrationForm.controls['userName'].value,
+      email: this.registrationForm.controls['email'].value,
+      password: this.registrationForm.controls['password'].value,
+      confirmPassword: this.registrationForm.controls['confirmPassword'].value
+    }
+    this.authService.register(registrationVM).subscribe(() => {
       this.isRegistrationComplete = true;
-      this.registration = new Registration();
     });
   }
 }

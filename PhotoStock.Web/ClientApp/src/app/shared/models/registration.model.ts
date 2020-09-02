@@ -1,11 +1,6 @@
-export class Registration{
+export interface Registration{
   username: string;
   password: string;
+  confirmPassword: string;
   email: string;
-
-  constructor(){
-    this.username = "";
-    this.password = "";
-    this.email = "";
-  }
 }

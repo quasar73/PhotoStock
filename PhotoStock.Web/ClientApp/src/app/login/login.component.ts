@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../shared/authentication/authentication.service';
 import { LoginStateService } from '../shared/authentication/login-state.service';
 import { Login } from '../shared/models/login.model';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,10 @@ import { Login } from '../shared/models/login.model';
 })
 export class LoginComponent implements OnInit {
 
-  user: Login = new Login();
+  loginForm: FormGroup = new FormGroup({
+    "userName" : new FormControl("", [Validators.required]),
+    "password": new FormControl("", [Validators.required])
+  });
   message: string;
 
   constructor(private router: Router,
@@ -22,8 +26,12 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
+    let loginVM: Login = {
+      username: this.loginForm.controls['userName'].value,
+      password: this.loginForm.controls['password'].value
+    };
     this.authService
-      .login(this.user)
+      .login(loginVM)
       .subscribe(() => {
         this.stateService.update(true);
         this.router.navigate(['/']);

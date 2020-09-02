@@ -1,0 +1,20 @@
+<div class="form">
+  <h1>Login</h1>
+  <form [formGroup]="loginForm">
+    <mat-form-field class="example-full-width">
+      <mat-label>Login</mat-label>
+      <input matInput placeholder="Login" formControlName="userName">
+    </mat-form-field>
+    <br/>
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput placeholder="Password" formControlName="password">
+    </mat-form-field>
+  </form>
+  <br/>
+  <button *ngIf="!inProgress" mat-raised-button color="primary" (click)="login()">Login</button>
+  <mat-spinner *ngIf="inProgress" [diameter]="32"></mat-spinner>
+  <div class="mt-4">
+    <span class="text-danger">{{ message }}</span>
+  </div>
+</div>

@@ -1,10 +1,20 @@
 <header>
-  <nav class="navbar navbar-expand navbar-dark bg-dark mb-4">
-      <div class="nav navbar-nav col-md-8 offset-md-2">
-          <a class="navbar-brand text-light" routerLink="/">PhotoStock</a>
-          <a class="nav-item nav-link text-light" routerLink="/photo">Photo</a>
-      </div>
-  </nav>
+  <p>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row class="col-md-8 offset-md-2 mt-3">
+        <mat-icon aria-hidden="false" aria-label="Nav logo" class="mr-2">image</mat-icon>
+        <h1>PhotoStock</h1>
+        <span class="menu-spacer"></span>
+        <div>
+          <a class="ml-3 text-light text-decoration-none" [routerLink]="'/'"> Home </a>
+          <a class="ml-3 text-light text-decoration-none" [routerLink]="'/photo'"> Photo </a>
+          <a *ngIf="!isAuth" class="ml-3 text-light text-decoration-none" [routerLink]="'/account/login'"> Login </a>
+          <a *ngIf="!isAuth" class="ml-3 text-light text-decoration-none" [routerLink]="'/account/registration'"> Registration </a>
+          <a *ngIf="isAuth" (click)="logout()" class="ml-3 text-light text-decoration-none" [routerLink]="'/'"> Logout </a>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </p>
 </header>
 <main role="main" class="col-md-8 offset-md-2">
   <router-outlet></router-outlet>

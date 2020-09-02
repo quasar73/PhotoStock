@@ -1,24 +1,26 @@
-<h1>Registration</h1>
-<mat-form-field class="example-full-width">
-  <mat-label>Email</mat-label>
-  <input type="email" matInput placeholder="Email" [(ngModel)]="registration.email" >
-</mat-form-field>
-<br/>
-<mat-form-field class="example-full-width">
-  <mat-label>Login</mat-label>
-  <input matInput placeholder="Login" [(ngModel)]="registration.username" >
-</mat-form-field>
-<br/>
-<mat-form-field class="example-full-width">
-  <mat-label>Password</mat-label>
-  <input type="password" matInput placeholder="Password" [(ngModel)]="registration.password" >
-</mat-form-field>
-<br/>
-<button mat-raised-button color="primary" (click)="register()">Register</button>
-<br/>
-<div *ngIf="isRegistrationComplete" class="mt-4">
-  <div class="text-success">
-    You have successfully registered!
+<div class="form">
+  <h1>Registration</h1>
+  <mat-form-field class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput placeholder="Email" [(ngModel)]="registration.email" >
+  </mat-form-field>
+  <br/>
+  <mat-form-field class="example-full-width">
+    <mat-label>Login</mat-label>
+    <input matInput placeholder="Login" [(ngModel)]="registration.username" >
+  </mat-form-field>
+  <br/>
+  <mat-form-field class="example-full-width">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput placeholder="Password" [(ngModel)]="registration.password" >
+  </mat-form-field>
+  <br/>
+  <button mat-raised-button color="primary" (click)="register()">Register</button>
+  <br/>
+  <div *ngIf="isRegistrationComplete" class="mt-4">
+    <div class="text-success">
+      You have successfully registered!
+    </div>
+    <a routerLink="/account/login" class="text-success font-weight-light">Click here to login</a>
   </div>
-  <a routerLink="/account/login" class="text-success font-weight-light">Click here to login</a>
 </div>

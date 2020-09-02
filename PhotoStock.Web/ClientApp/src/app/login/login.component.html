@@ -1,15 +1,17 @@
-<h1>Login</h1>
-<mat-form-field class="example-full-width">
-  <mat-label>Login</mat-label>
-  <input matInput placeholder="Login" [(ngModel)]="user.username">
-</mat-form-field>
-<br/>
-<mat-form-field class="example-full-width">
-  <mat-label>Password</mat-label>
-  <input type="password" matInput placeholder="Password" [(ngModel)]="user.password">
-</mat-form-field>
-<br/>
-<button mat-raised-button color="primary" (click)="login()">Login</button>
-<div class="mt-4">
-  <span class="text-danger">{{ message }}</span>
+<div class="form">
+  <h1>Login</h1>
+  <mat-form-field class="example-full-width">
+    <mat-label>Login</mat-label>
+    <input matInput placeholder="Login" [(ngModel)]="user.username">
+  </mat-form-field>
+  <br/>
+  <mat-form-field class="example-full-width">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput placeholder="Password" [(ngModel)]="user.password">
+  </mat-form-field>
+  <br/>
+  <button mat-raised-button color="primary" (click)="login()">Login</button>
+  <div class="mt-4">
+    <span class="text-danger">{{ message }}</span>
+  </div>
 </div>

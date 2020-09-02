@@ -5,9 +5,9 @@ import { tap, map, switchMap, catchError } from 'rxjs/operators';
 import { AuthService } from 'ngx-auth';
 import { Login } from '../models/login.model';
 import { Registration } from '../models/registration.model';
+import { environment } from '../../../environments/environment';
 
 import { TokenStorage } from './token-storage.service';
-import { RegistrationComponent } from 'src/app/registration/registration.component';
 
 interface AccessData {
   token: string;
@@ -38,7 +38,7 @@ export class AuthenticationService implements AuthService {
       .getRefreshToken()
       .pipe(
         switchMap((refreshToken: string) =>
-          this.http.post(`http://localhost:3000/refresh`, { refreshToken })
+          this.http.post(environment.refreshUrl, { refreshToken })
         ),
         tap((tokens: AccessData) => this.saveAccessData(tokens)),
         catchError((err) => {
@@ -59,12 +59,12 @@ export class AuthenticationService implements AuthService {
 
 
   public login(loginVM: Login): Observable<any> {
-    return this.http.post(`https://localhost:44384/api/auth/login`, loginVM)
+    return this.http.post(environment.loginUrl, loginVM)
     .pipe(tap((tokens: AccessData) => this.saveAccessData(tokens)));
   }
 
   public register(registrationVM: Registration) {
-    return this.http.post(`https://localhost:44384/api/auth/register`, registrationVM);
+    return this.http.post(environment.registerUrl, registrationVM);
   }
 
   public logout(): void {

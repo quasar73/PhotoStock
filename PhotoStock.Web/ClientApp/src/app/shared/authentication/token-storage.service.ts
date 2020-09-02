@@ -1,34 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
+const accessToken: string = 'accessToken';
+const refreshToken: string = 'refreshToken';
 @Injectable()
 export class TokenStorage {
 
   public getAccessToken(): Observable<string> {
-    const token: string = <string>localStorage.getItem('accessToken');
+    const token: string = <string>localStorage.getItem(accessToken);
     return of(token);
   }
 
 
   public getRefreshToken(): Observable<string> {
-    const token: string = <string>localStorage.getItem('refreshToken');
+    const token: string = <string>localStorage.getItem(refreshToken);
     return of(token);
   }
 
   public setAccessToken(token: string): TokenStorage {
-    localStorage.setItem('accessToken', token);
+    localStorage.setItem(accessToken, token);
 
     return this;
   }
 
 
   public setRefreshToken(token: string): TokenStorage {
-    localStorage.setItem('refreshToken', token);
+    localStorage.setItem(refreshToken, token);
 
     return this;
   }
 
   public clear() {
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem(accessToken);
   }
 }

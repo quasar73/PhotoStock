@@ -1,0 +1,24 @@
+<h1>Image importing</h1>
+<form>
+  <input
+    #imageInput
+    type="file"
+    accept="image/"
+    class="mb-4"/>
+  <br/>
+  <mat-form-field appearance="fill">
+    <mat-label>Select</mat-label>
+    <mat-select [(ngModel)]="category" name="category">
+      <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br/>
+  <button *ngIf="!inProgress"  mat-raised-button color="primary" (click)="import(imageInput)">Import</button>
+  <mat-spinner *ngIf="inProgress" [diameter]="32"></mat-spinner>
+  <div *ngIf="!isFailed" class="mt-4">
+    <span class="text-success">{{ message }}</span>
+  </div>
+  <div *ngIf="isFailed" class="mt-4">
+    <span class="text-danger">Failed!</span>
+  </div>
+</form>

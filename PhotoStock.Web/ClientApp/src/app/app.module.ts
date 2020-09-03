@@ -11,13 +11,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 import { PhotoComponent } from './photo/photo.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AuthenticationModule } from './shared/authentication/authentication.module';
+import { ImportComponent } from './import/import.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import { AuthenticationModule } from './shared/authentication/authentication.mod
     PhotoComponent,
     HomeComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ImportComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,9 @@ import { AuthenticationModule } from './shared/authentication/authentication.mod
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

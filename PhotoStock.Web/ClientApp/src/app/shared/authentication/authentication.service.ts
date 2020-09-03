@@ -59,12 +59,12 @@ export class AuthenticationService implements AuthService {
 
 
   public login(loginVM: Login): Observable<any> {
-    return this.http.post(environment.apiUrl + 'account/login', loginVM)
+    return this.http.post(environment.apiUrl + 'auth/login', loginVM)
     .pipe(tap((tokens: AccessData) => this.saveAccessData(tokens)));
   }
 
   public register(registrationVM: Registration) {
-    return this.http.post(environment.apiUrl + 'account/register', registrationVM);
+    return this.http.post(environment.apiUrl + 'auth/register', registrationVM);
   }
 
   public logout(): void {

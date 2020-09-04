@@ -78,6 +78,7 @@ namespace PhotoStock.Web
 				app.UseDeveloperExceptionPage();
 			}
 
+			app.UseStaticFiles();
 			app.UseRouting();
 
 			app.UseAuthentication();

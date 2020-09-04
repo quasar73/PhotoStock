@@ -8,7 +8,7 @@ namespace PhotoStock.DataBase.Repositories
 {
 	public interface IRepository<TEntity>
 	{
-		Task<IEnumerable> GetListAsync();
+		Task<List<TEntity>> GetListAsync();
 		Task CreateAsync(TEntity entity);
 		Task UpdateAsync(TEntity entity);
 		Task DeleteAsync(TEntity entity);

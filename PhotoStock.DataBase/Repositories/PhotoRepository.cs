@@ -33,7 +33,7 @@ namespace PhotoStock.DataBase.Repositories
 			return await context.Photos.FirstOrDefaultAsync<Photo>(p => p.Id == id);
 		}
 
-		public async Task<IEnumerable> GetListAsync()
+		public async Task<List<Photo>> GetListAsync()
 		{
 			return await context.Photos.ToListAsync<Photo>();
 		}

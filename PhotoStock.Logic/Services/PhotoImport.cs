@@ -24,13 +24,13 @@ namespace PhotoStock.Logic.Services
 		{
 			if(file != null)
 			{
-				string path = webrootpath + "/Photos/" + file.FileName;
+				string path = "Photos/" + file.FileName;
 				using(var fileStream = new FileStream(path, FileMode.Create))
 				{
 					await file.CopyToAsync(fileStream);
 				}
 				var optimizer = new ImageOptimizer();
-				optimizer.Compress(path);
+				optimizer.Compress(webrootpath);
 				Photo photo = new Photo()
 				{
 					Name = Guid.NewGuid().ToString(),

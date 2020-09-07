@@ -13,6 +13,14 @@ export class PhotoComponent implements OnInit {
 
   photoList: Photo[];
   serverUrl: string = environment.serverUrl;
+  categories: string[] = [
+    'Human',
+    'Nature',
+    'Animals',
+    'Weapon',
+    'Things',
+    'Other'
+  ];
 
   constructor(private getterService: ImageGetterService) { }
 

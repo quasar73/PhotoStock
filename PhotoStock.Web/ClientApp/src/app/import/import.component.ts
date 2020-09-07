@@ -14,7 +14,7 @@ export class ImportComponent implements OnInit {
   categories: string[] = [
     'Human',
     'Nature',
-    'Anumals',
+    'Animals',
     'Weapon',
     'Things',
     'Other'

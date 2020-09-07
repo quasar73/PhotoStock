@@ -1,3 +1,23 @@
-<ul>
-  <li *ngFor="let photo of photoList"><img src="{{ serverUrl }}/{{ photo.path }}" alt=""></li>
-</ul>
+<h1>Photos</h1>
+<div class="container">
+  <virtual-scroller #scroll [items]="photoList" class="col-md-12">
+    <div *ngFor="let photo of scroll.viewPortItems" class="photo-block mb-2 mt-1 col-md-6 offset-md-3 row">
+      <mat-card class="photo-card">
+        <img
+          class="card-img"
+          src="{{ serverUrl }}/{{ photo.path }}"
+          alt="photo">
+        <mat-card-content>
+          <p>
+            <b>User: </b><span>{{ photo.userName }}</span>
+            <br/>
+            <b>Upload date: </b><span>{{ photo.uploadDate | date: 'dd.MM.yyyy' }}</span>
+            <br/>
+            <b>Category: </b><span>{{ categories[photo.category] }}</span>
+            <br/>
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </virtual-scroller>
+</div>

@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule }   from '@angular/forms';
+import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 
 import { PhotoComponent } from './photo/photo.component';
 import { HomeComponent } from './home/home.component';
@@ -45,7 +47,9 @@ import { ImportComponent } from './import/import.component';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    VirtualScrollerModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

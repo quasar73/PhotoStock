@@ -3,6 +3,8 @@ import { Photo } from '../shared/models/photo.model';
 import { ImageGetterService } from '../shared/image-getter/image-gettr.service'
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
+import { CategoriesConst } from '../shared/consts/categories.const'
+
 @Component({
   selector: 'app-photo',
   templateUrl: './photo.component.html',
@@ -11,41 +13,27 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PhotoComponent implements OnInit {
 
+  categories = CategoriesConst.categories;
   photoList: Photo[];
   serverUrl: string = environment.serverUrl;
-  categories: string[] = [
-    'Nature',
-    'Animals',
-    'Human',
-    'Weapon',
-    'Thing',
-    'Other'
-  ];
 
   constructor(private getterService: ImageGetterService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      let category = params['category'];
-      console.log(category);
+      const category = params['category'];
       if(!this.categories.includes(category)) {
-        this.getAllImages();
+        this.getImages('Any');
       }
       else {
-        this.getCategory(category);
+        this.getImages(category);
       }
     });
   }
 
-  getCategory(category: string): void{
-    this.getterService.getImagesByCategory(category).subscribe((images: Photo[]) => {
-      this.photoList = images;
-    });
-  }
-
-  getAllImages(): void{
-    this.getterService.getImages().subscribe((images: Photo[]) => {
+  getImages(category: string): void {
+    this.getterService.getImages(category).subscribe((images: Photo[]) => {
       this.photoList = images;
     });
   }

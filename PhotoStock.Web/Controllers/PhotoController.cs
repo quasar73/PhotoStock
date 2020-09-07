@@ -22,16 +22,14 @@ namespace PhotoStock.Web.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly IImportService importService;
-        private readonly IWebHostEnvironment env;
-        private readonly PhotoRepository repository;
-        private readonly ApplicationContext context;
-        public PhotoController(UserManager<User> userManager, IImportService importService, IWebHostEnvironment env, ApplicationContext context)
+        private readonly IWebHostEnvironment environment;
+        private readonly IRepository<Photo> repository;
+        public PhotoController(UserManager<User> userManager, IImportService importService, IWebHostEnvironment environment, IRepository<Photo> repository)
         {
             this.userManager = userManager;
             this.importService = importService;
-            this.env = env;
-            this.context = context;
-            repository = new PhotoRepository(context);
+            this.environment = environment;
+            this.repository = repository;
         }
 
         [HttpPost]
@@ -42,7 +40,7 @@ namespace PhotoStock.Web.Controllers
             string userId = userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name)?.Id;
             if (ModelState.IsValid && userId != null)
             {
-                await importService.ImportPhoto(importVM.File, userId, importVM.Category, env.WebRootPath);
+                await importService.ImportPhoto(importVM.File, userId, importVM.Category, environment.WebRootPath);
                 return Ok(new { Message = "Photo uploaded successfully!" });
             }
             return new BadRequestObjectResult(new { Message = "Upload was failed"});
@@ -50,31 +48,25 @@ namespace PhotoStock.Web.Controllers
 
         [HttpGet]
         [Route("GetImages")]
-        public async Task<IActionResult> GetImages()
+        public async Task<IActionResult> GetImages(Categories category)
         {
-            var images = repository.GetListAsync().Result;
+            List<Photo> images;
+            if (category == Categories.Any)
+            {
+                images = await repository.GetListAsync();
+            }
+            else
+            {
+                images = await repository.GetByCategoryAsync(category);
+            }
             var photoList = images.Select(photo => new PhotoViewModel() {
                 Path = photo.Path,
                 Category = photo.Category,
                 UploadDate = photo.UploadDate,
-                UserName = context.Users.FirstOrDefault(u => u.Id == photo.UserId).UserName
+                UserName = photo.User.UserName
             }).ToList();
             return Ok(photoList);
         }
 
-        [HttpGet]
-        [Route("GetImagesByCategory")]
-        public async Task<IActionResult> GetImages(Categories category)
-        {
-            var images = repository.GetByCategoryAsync(category).Result;
-            var photoList = images.Select(photo => new PhotoViewModel()
-            {
-                Path = photo.Path,
-                Category = photo.Category,
-                UploadDate = photo.UploadDate,
-                UserName = context.Users.FirstOrDefault(u => u.Id == photo.UserId).UserName
-            }).ToList();
-            return Ok(photoList);
-        }
     }
 }

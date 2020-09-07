@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using PhotoStock.Common;
 using PhotoStock.Logic.Interfaces;
 using PhotoStock.Logic.Services;
-
+using PhotoStock.DataBase.Repositories;
 
 namespace PhotoStock.Web
 {
@@ -64,6 +64,7 @@ namespace PhotoStock.Web
 				};
 			});
 			services.AddTransient<IImportService, PhotoImport>();
+			services.AddTransient<IRepository<Photo>, PhotoRepository>();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -6,11 +6,7 @@ import { environment } from '../../../environments/environment';
 export class ImageGetterService {
   constructor(private http: HttpClient) {}
 
-  public getImages(){
-    return this.http.get(environment.apiUrl + 'photo/getimages');
-  }
-
-  public getImagesByCategory(category: string){
-    return this.http.get(environment.apiUrl + 'photo/getimagesbycategory', {params: {['category']: category}});
+  public getImages(category: string){
+    return this.http.get(environment.apiUrl + 'photo/getimages', {params: {['category']: category}});
   }
 }

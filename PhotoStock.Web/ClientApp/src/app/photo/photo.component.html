@@ -1,10 +1,10 @@
 <ul>
-  <button mat-raised-button color="primary" class="mr-1" [routerLink]="'/photo'" [queryParams]="{category: 'Nature'}">Nature</button>
-  <button mat-raised-button color="primary" class="mr-1" [routerLink]="'/photo'" [queryParams]="{category: 'Animals'}">Animals</button>
-  <button mat-raised-button color="primary" class="mr-1" [routerLink]="'/photo'" [queryParams]="{category: 'Human'}">Human</button>
-  <button mat-raised-button color="primary" class="mr-1" [routerLink]="'/photo'" [queryParams]="{category: 'Weapon'}">Weapon</button>
-  <button mat-raised-button color="primary" class="mr-1" [routerLink]="'/photo'" [queryParams]="{category: 'Thing'}">Thing</button>
-  <button mat-raised-button color="primary" class="mr-1" [routerLink]="'/photo'" [queryParams]="{category: 'Other'}">Other</button>
+  <button
+    *ngFor="let cat of this.categories"
+    mat-raised-button color="primary"
+    class="mr-1"
+    [routerLink]="'/photo'"
+    [queryParams]="{category: cat}">{{ cat }}</button>
   <button mat-raised-button color="accent" class="mr-1" [routerLink]="'/photo'">Any</button>
 </ul>
 <div class="container">
@@ -14,7 +14,7 @@
       <mat-card class="photo-card">
         <img
           class="card-img"
-          src="{{ serverUrl }}/{{ photo.path }}"
+          src="{{ serverUrl + '/' + photo.path }}"
           alt="photo">
         <mat-card-content>
           <p>
@@ -22,7 +22,7 @@
             <br/>
             <b>Upload date: </b><span>{{ photo.uploadDate | date: 'dd.MM.yyyy' }}</span>
             <br/>
-            <b>Category: </b><span>{{ categories[photo.category] }}</span>
+            <b>Category: </b><span>{{ this.categories[photo.category] }}</span>
             <br/>
           </p>
         </mat-card-content>

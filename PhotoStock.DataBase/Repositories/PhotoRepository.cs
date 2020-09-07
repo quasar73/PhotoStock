@@ -36,12 +36,12 @@ namespace PhotoStock.DataBase.Repositories
 
 		public async Task<List<Photo>> GetListAsync()
 		{
-			return await context.Photos.ToListAsync<Photo>();
+			return await context.Photos.Include(p => p.User).ToListAsync<Photo>();
 		}
 
 		public async Task<List<Photo>> GetByCategoryAsync(Categories category)
 		{
-			return await context.Photos.Where(ph => ph.Category == category).ToListAsync<Photo>();
+			return await context.Photos.Where(ph => ph.Category == category).Include(p => p.User).ToListAsync<Photo>();
 		}
 
 		public async Task UpdateAsync(Photo entity)

@@ -15,10 +15,10 @@ namespace PhotoStock.Logic.Services
 {
 	public class PhotoImport : IImportService
 	{
-		private readonly PhotoRepository repository;
-		public PhotoImport(ApplicationContext contex)
+		private readonly IRepository<Photo> repository;
+		public PhotoImport(IRepository<Photo> repository)
 		{
-			repository = new PhotoRepository(contex);
+			this.repository = repository;
 		}
 		public async Task ImportPhoto(IFormFile file, string userId, Categories category, string webrootpath)
 		{

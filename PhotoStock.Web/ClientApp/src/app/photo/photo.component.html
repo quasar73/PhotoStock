@@ -1,7 +1,16 @@
-<h1>Photos</h1>
+<ul>
+  <button mat-raised-button color="primary" class="mr-1" [routerLink]="'/photo'" [queryParams]="{category: 'Nature'}">Nature</button>
+  <button mat-raised-button color="primary" class="mr-1" [routerLink]="'/photo'" [queryParams]="{category: 'Animals'}">Animals</button>
+  <button mat-raised-button color="primary" class="mr-1" [routerLink]="'/photo'" [queryParams]="{category: 'Human'}">Human</button>
+  <button mat-raised-button color="primary" class="mr-1" [routerLink]="'/photo'" [queryParams]="{category: 'Weapon'}">Weapon</button>
+  <button mat-raised-button color="primary" class="mr-1" [routerLink]="'/photo'" [queryParams]="{category: 'Thing'}">Thing</button>
+  <button mat-raised-button color="primary" class="mr-1" [routerLink]="'/photo'" [queryParams]="{category: 'Other'}">Other</button>
+  <button mat-raised-button color="accent" class="mr-1" [routerLink]="'/photo'">Any</button>
+</ul>
 <div class="container">
+  <span *ngIf="photoList.length == 0" class="font-weight-light text-muted">Nothing found</span>
   <virtual-scroller #scroll [items]="photoList" class="col-md-12">
-    <div *ngFor="let photo of scroll.viewPortItems" class="photo-block mb-2 mt-1 col-md-6 offset-md-3 row">
+    <div *ngFor="let photo of scroll.viewPortItems" class="photo-block mb-2 mt-1 col-md-8 offset-md-2 row">
       <mat-card class="photo-card">
         <img
           class="card-img"

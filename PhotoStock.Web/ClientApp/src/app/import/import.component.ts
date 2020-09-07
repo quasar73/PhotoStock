@@ -16,7 +16,7 @@ export class ImportComponent implements OnInit {
     'Nature',
     'Animals',
     'Weapon',
-    'Things',
+    'Thing',
     'Other'
   ];
   isFailed: boolean = false;

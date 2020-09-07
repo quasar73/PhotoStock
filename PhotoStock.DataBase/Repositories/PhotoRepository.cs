@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PhotoStock.Common;
 using PhotoStock.DataBase.Models;
 
 namespace PhotoStock.DataBase.Repositories
@@ -36,6 +37,11 @@ namespace PhotoStock.DataBase.Repositories
 		public async Task<List<Photo>> GetListAsync()
 		{
 			return await context.Photos.ToListAsync<Photo>();
+		}
+
+		public async Task<List<Photo>> GetByCategoryAsync(Categories category)
+		{
+			return await context.Photos.Where(ph => ph.Category == category).ToListAsync<Photo>();
 		}
 
 		public async Task UpdateAsync(Photo entity)

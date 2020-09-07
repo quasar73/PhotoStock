@@ -61,5 +61,20 @@ namespace PhotoStock.Web.Controllers
             }).ToList();
             return Ok(photoList);
         }
+
+        [HttpGet]
+        [Route("GetImagesByCategory")]
+        public async Task<IActionResult> GetImages(Categories category)
+        {
+            var images = repository.GetByCategoryAsync(category).Result;
+            var photoList = images.Select(photo => new PhotoViewModel()
+            {
+                Path = photo.Path,
+                Category = photo.Category,
+                UploadDate = photo.UploadDate,
+                UserName = context.Users.FirstOrDefault(u => u.Id == photo.UserId).UserName
+            }).ToList();
+            return Ok(photoList);
+        }
     }
 }

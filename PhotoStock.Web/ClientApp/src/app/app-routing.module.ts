@@ -8,11 +8,11 @@ import { ImportComponent } from './import/import.component';
 import { ProtectedGuard } from 'ngx-auth';
 
 const routes: Routes = [
-  {path: 'photo', component: PhotoComponent},
   {path: '', component: HomeComponent},
+  {path: 'photo', component: PhotoComponent},
   {path: 'account/login', component: LoginComponent},
   {path: 'account/registration', component: RegistrationComponent},
-  {path: 'import', component: ImportComponent, canActivate: [ ProtectedGuard ],}
+  {path: 'import', component: ImportComponent, canActivate: [ ProtectedGuard ]}
 ];
 
 @NgModule({

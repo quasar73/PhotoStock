@@ -6,13 +6,15 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ImportComponent } from './import/import.component';
 import { ProtectedGuard } from 'ngx-auth';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'photo', component: PhotoComponent},
   {path: 'account/login', component: LoginComponent},
   {path: 'account/registration', component: RegistrationComponent},
-  {path: 'import', component: ImportComponent, canActivate: [ ProtectedGuard ]}
+  {path: 'import', component: ImportComponent, canActivate: [ ProtectedGuard ]},
+  {path: 'admin', component: AdminComponent}
 ];
 
 @NgModule({

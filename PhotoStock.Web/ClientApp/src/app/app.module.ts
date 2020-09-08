@@ -16,6 +16,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 
 import { PhotoComponent } from './photo/photo.component';
 import { HomeComponent } from './home/home.component';
@@ -23,6 +24,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AuthenticationModule } from './shared/authentication/authentication.module';
 import { ImportComponent } from './import/import.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { ImportComponent } from './import/import.component';
     HomeComponent,
     LoginComponent,
     RegistrationComponent,
-    ImportComponent
+    ImportComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import { ImportComponent } from './import/import.component';
     MatFormFieldModule,
     MatSelectModule,
     VirtualScrollerModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

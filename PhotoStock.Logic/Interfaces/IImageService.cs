@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace PhotoStock.Logic.Interfaces
 {
-	public interface IImageService <TEntity>
+	public interface IImageService <TResult>
 	{
-		public Task<List<TEntity>> GetImagesAsync(Categories category);
+		public Task<TResult> GetImagesAsync(Categories category);
 	}
 }

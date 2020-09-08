@@ -5,25 +5,29 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PhotoStock.Common.ViewModels;
+using PhotoStock.Logic.Interfaces;
 using PhotoStock.Logic.Services;
 
 namespace PhotoStock.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
     {
-        private readonly AdminService adminService;
-        public AdminController(AdminService adminService)
+        private readonly IAdminService<UserViewModel> adminService;
+        public AdminController(IAdminService<UserViewModel> adminService)
         {
             this.adminService = adminService;
         }
 
+        [HttpGet]
         [Route("GetUsers")]
         public async Task<IActionResult> GetUsersList()
         {
-            return Ok(await adminService.GetUsersListAsync());
+            var users = await adminService.GetUsersListAsync();
+            return Ok(users);
         }
     }
 }

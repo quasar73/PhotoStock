@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PhotoStock.Common.ViewModels;
+using PhotoStock.DataBase;
+using System.Linq;
 
 namespace PhotoStock.Web.Controllers
 {
@@ -20,8 +22,9 @@ namespace PhotoStock.Web.Controllers
     {
         private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
         private readonly UserManager<User> userManager;
+        private readonly ApplicationContext context;
 
-        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<User> userManager)
+        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<User> userManager, ApplicationContext context)
         {
             this.jwtBearerTokenSettings = jwtTokenOptions.Value;
             this.userManager = userManager;
@@ -77,7 +80,8 @@ namespace PhotoStock.Web.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, identityUser.UserName.ToString()),
-                    new Claim(ClaimTypes.Email, identityUser.Email)
+                    new Claim(ClaimTypes.Email, identityUser.Email),
+                    new Claim(ClaimTypes.Role, userManager.GetRolesAsync(identityUser)?.Result?.FirstOrDefault() ?? "user")
                 }),
                 Expires = DateTime.UtcNow.AddSeconds(jwtBearerTokenSettings.ExpiryTimeInSeconds),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),

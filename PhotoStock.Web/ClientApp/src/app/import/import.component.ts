@@ -1,28 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageImportService } from '../shared/image-import/image-import.service';
+import { ImageService } from '../shared/image/image.service';
+import { CategoriesConst } from '../shared/consts/categories.const';
 
 @Component({
   selector: 'app-import',
   templateUrl: './import.component.html',
-  styleUrls: ['./import.component.scss'],
-  providers: [ImageImportService]
+  styleUrls: ['./import.component.scss']
 })
 export class ImportComponent implements OnInit {
 
   message: string;
   category: string;
-  categories: string[] = [
-    'Human',
-    'Nature',
-    'Anumals',
-    'Weapon',
-    'Things',
-    'Other'
-  ];
+  categories = CategoriesConst.categories;
   isFailed: boolean = false;
   inProgress: boolean = false;
 
-  constructor(private imageService: ImageImportService) { }
+  constructor(private imageService: ImageService) { }
 
   ngOnInit(): void {
   }

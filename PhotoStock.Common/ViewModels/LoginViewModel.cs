@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PhotoStock.Web.ViewModels
+namespace PhotoStock.Common.ViewModels
 {
 	public class LoginViewModel
 	{

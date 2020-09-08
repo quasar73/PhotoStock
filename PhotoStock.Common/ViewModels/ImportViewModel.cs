@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PhotoStock.Web.ViewModels
+namespace PhotoStock.Common.ViewModels
 {
 	public class ImportViewModel
 	{

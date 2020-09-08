@@ -9,6 +9,7 @@ namespace PhotoStock.Common
 		Human,
 		Weapon,
 		Thing,
-		Other
+		Other,
+		Any
 	}
 }

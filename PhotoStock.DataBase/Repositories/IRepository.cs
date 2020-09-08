@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PhotoStock.Common;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +9,11 @@ namespace PhotoStock.DataBase.Repositories
 {
 	public interface IRepository<TEntity>
 	{
-		Task<IEnumerable> GetListAsync();
+		Task<List<TEntity>> GetListAsync();
 		Task CreateAsync(TEntity entity);
 		Task UpdateAsync(TEntity entity);
 		Task DeleteAsync(TEntity entity);
+		Task<List<TEntity>> GetByCategoryAsync(Categories category);
 		Task<TEntity> GetByIdAsync(int id);
 	}
 }

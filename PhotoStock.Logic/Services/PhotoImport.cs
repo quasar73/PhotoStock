@@ -15,22 +15,23 @@ namespace PhotoStock.Logic.Services
 {
 	public class PhotoImport : IImportService
 	{
-		private readonly PhotoRepository repository;
-		public PhotoImport(ApplicationContext contex)
+		private readonly IRepository<Photo> repository;
+		public PhotoImport(IRepository<Photo> repository)
 		{
-			repository = new PhotoRepository(contex);
+			this.repository = repository;
 		}
 		public async Task ImportPhoto(IFormFile file, string userId, Categories category, string webrootpath)
 		{
 			if(file != null)
 			{
-				string path = webrootpath + "/Photos/" + file.FileName;
-				using(var fileStream = new FileStream(path, FileMode.Create))
+				webrootpath = webrootpath + @"\";
+				string path = @"Photos\" + file.FileName;
+				using(var fileStream = new FileStream(webrootpath + path, FileMode.Create))
 				{
 					await file.CopyToAsync(fileStream);
 				}
 				var optimizer = new ImageOptimizer();
-				optimizer.Compress(path);
+				optimizer.Compress(webrootpath + path);
 				Photo photo = new Photo()
 				{
 					Name = Guid.NewGuid().ToString(),

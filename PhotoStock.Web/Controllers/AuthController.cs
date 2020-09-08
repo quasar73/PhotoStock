@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using PhotoStock.Web.ViewModels;
+using PhotoStock.Common.ViewModels;
 
 namespace PhotoStock.Web.Controllers
 {
@@ -20,13 +20,11 @@ namespace PhotoStock.Web.Controllers
     {
         private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
         private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signInManager;
 
-        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<User> userManager, SignInManager<User> signInManager)
+        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<User> userManager)
         {
             this.jwtBearerTokenSettings = jwtTokenOptions.Value;
             this.userManager = userManager;
-            this.signInManager = signInManager;
         }
 
         [HttpPost]

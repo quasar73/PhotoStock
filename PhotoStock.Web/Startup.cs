@@ -68,7 +68,8 @@ namespace PhotoStock.Web
 			});
 			services.AddTransient<IImportService, PhotoImport>();
 			services.AddTransient<IRepository<Photo>, PhotoRepository>();
-			services.AddTransient<IImageService<List<PhotoViewModel>>, ImageService>();
+			services.AddTransient<IImageService<PhotoViewModel>, ImageService>();
+			services.AddTransient<IAdminService<UserViewModel>, AdminService>();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PhotoStock.Logic.Services
 {
-    public class ImageService : IImageService <List<PhotoViewModel>>
+    public class ImageService : IImageService <PhotoViewModel>
     {
         private readonly IRepository<Photo> repository;
         public ImageService(IRepository<Photo> repository)

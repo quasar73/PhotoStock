@@ -15,6 +15,7 @@ using PhotoStock.Common;
 using PhotoStock.Logic.Interfaces;
 using PhotoStock.Logic.Services;
 using PhotoStock.DataBase.Repositories;
+using System.Collections.Generic;
 
 namespace PhotoStock.Web
 {
@@ -65,6 +66,7 @@ namespace PhotoStock.Web
 			});
 			services.AddTransient<IImportService, PhotoImport>();
 			services.AddTransient<IRepository<Photo>, PhotoRepository>();
+			services.AddTransient<IImageService<List<Photo>>, ImageService>();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

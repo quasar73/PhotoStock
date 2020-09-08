@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Photo } from '../shared/models/photo.model';
-import { ImageGetterService } from '../shared/image-getter/image-gettr.service'
+import { ImageService } from '../shared/image/image.service'
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriesConst } from '../shared/consts/categories.const'
@@ -8,8 +8,7 @@ import { CategoriesConst } from '../shared/consts/categories.const'
 @Component({
   selector: 'app-photo',
   templateUrl: './photo.component.html',
-  styleUrls: ['./photo.component.scss'],
-  providers: [ImageGetterService]
+  styleUrls: ['./photo.component.scss']
 })
 export class PhotoComponent implements OnInit {
 
@@ -17,7 +16,7 @@ export class PhotoComponent implements OnInit {
   photoList: Photo[];
   serverUrl: string = environment.serverUrl;
 
-  constructor(private getterService: ImageGetterService,
+  constructor(private getterService: ImageService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {

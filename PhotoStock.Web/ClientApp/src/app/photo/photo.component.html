@@ -1,10 +1,10 @@
 <ul>
   <button
-    *ngFor="let cat of this.categories"
+    *ngFor="let category of this.categories"
     mat-raised-button color="primary"
     class="mr-1"
     [routerLink]="'/photo'"
-    [queryParams]="{category: cat}">{{ cat }}</button>
+    [queryParams]="{category: category}">{{ category }}</button>
   <button mat-raised-button color="accent" class="mr-1" [routerLink]="'/photo'">Any</button>
 </ul>
 <div class="container">

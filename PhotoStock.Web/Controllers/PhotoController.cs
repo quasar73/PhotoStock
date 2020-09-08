@@ -23,13 +23,13 @@ namespace PhotoStock.Web.Controllers
         private readonly UserManager<User> userManager;
         private readonly IImportService importService;
         private readonly IWebHostEnvironment environment;
-        private readonly IRepository<Photo> repository;
-        public PhotoController(UserManager<User> userManager, IImportService importService, IWebHostEnvironment environment, IRepository<Photo> repository)
+        private readonly IImageService<List<Photo>> imageService;
+        public PhotoController(UserManager<User> userManager, IImportService importService, IWebHostEnvironment environment, IImageService<List<Photo>> imageService)
         {
             this.userManager = userManager;
             this.importService = importService;
             this.environment = environment;
-            this.repository = repository;
+            this.imageService = imageService;
         }
 
         [HttpPost]
@@ -50,16 +50,8 @@ namespace PhotoStock.Web.Controllers
         [Route("GetImages")]
         public async Task<IActionResult> GetImages(Categories category)
         {
-            List<Photo> images;
-            if (category == Categories.Any)
+            var photoList = (await imageService.GetImagesAsync(category)).Select(photo => new PhotoViewModel()
             {
-                images = await repository.GetListAsync();
-            }
-            else
-            {
-                images = await repository.GetByCategoryAsync(category);
-            }
-            var photoList = images.Select(photo => new PhotoViewModel() {
                 Path = photo.Path,
                 Category = photo.Category,
                 UploadDate = photo.UploadDate,

@@ -4,15 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PhotoStock.Common;
+using PhotoStock.Common.ViewModels;
 using PhotoStock.DataBase;
 using PhotoStock.DataBase.Models;
-using PhotoStock.DataBase.Repositories;
 using PhotoStock.Logic.Interfaces;
-using PhotoStock.Web.ViewModels;
 
 namespace PhotoStock.Web.Controllers
 {
@@ -23,8 +21,8 @@ namespace PhotoStock.Web.Controllers
         private readonly UserManager<User> userManager;
         private readonly IImportService importService;
         private readonly IWebHostEnvironment environment;
-        private readonly IImageService<List<Photo>> imageService;
-        public PhotoController(UserManager<User> userManager, IImportService importService, IWebHostEnvironment environment, IImageService<List<Photo>> imageService)
+        private readonly IImageService<List<PhotoViewModel>> imageService;
+        public PhotoController(UserManager<User> userManager, IImportService importService, IWebHostEnvironment environment, IImageService<List<PhotoViewModel>> imageService)
         {
             this.userManager = userManager;
             this.importService = importService;
@@ -50,13 +48,7 @@ namespace PhotoStock.Web.Controllers
         [Route("GetImages")]
         public async Task<IActionResult> GetImages(Categories category)
         {
-            var photoList = (await imageService.GetImagesAsync(category)).Select(photo => new PhotoViewModel()
-            {
-                Path = photo.Path,
-                Category = photo.Category,
-                UploadDate = photo.UploadDate,
-                UserName = photo.User.UserName
-            }).ToList();
+            var photoList = await imageService.GetImagesAsync(category);
             return Ok(photoList);
         }
 

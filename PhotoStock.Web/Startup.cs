@@ -33,7 +33,8 @@ namespace PhotoStock.Web
 			services.AddControllers();
 
 			services.AddDbContext<ApplicationContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+				options.UseLazyLoadingProxies()
+				.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 			services.AddIdentity<User, IdentityRole>(opts => {
 				opts.Password.RequiredLength = 3;
 				opts.Password.RequireNonAlphanumeric = false;

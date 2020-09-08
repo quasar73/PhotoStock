@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace PhotoStock.Logic.Services
 {
-	public class ImageService : IImageService <List<Photo>>
-	{
-		private readonly IRepository<Photo> repository;
-		public ImageService(IRepository<Photo> repository)
-		{
-			this.repository = repository;
-		}
-		public async Task<List<Photo>> GetImagesAsync(Categories category)
+    public class ImageService : IImageService <List<Photo>>
+    {
+        private readonly IRepository<Photo> repository;
+        public ImageService(IRepository<Photo> repository)
+        {
+            this.repository = repository;
+        }
+	    public async Task<List<Photo>> GetImagesAsync(Categories category)
 		{
             List<Photo> images;
             if (category == Categories.Any)

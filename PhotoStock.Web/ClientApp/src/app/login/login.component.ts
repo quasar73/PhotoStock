@@ -4,6 +4,7 @@ import { AuthenticationService } from '../shared/authentication/authentication.s
 import { LoginStateService } from '../shared/authentication/login-state.service';
 import { Login } from '../shared/models/login.model';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { RoleStateService } from '../shared/authentication/role-sate.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
     private authService: AuthenticationService,
-    private stateService: LoginStateService) { }
+    private loginStateService: LoginStateService,
+    private roleStateService: RoleStateService) { }
 
   ngOnInit(): void {
   }
@@ -35,7 +37,8 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(loginVM)
       .subscribe(() => {
-        this.stateService.update(true);
+        this.loginStateService.update(true);
+        this.roleStateService.update();
         this.router.navigate(['/']);
         this.inProgress = false;
       },

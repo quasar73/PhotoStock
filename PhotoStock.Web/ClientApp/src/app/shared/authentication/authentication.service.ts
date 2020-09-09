@@ -80,11 +80,7 @@ export class AuthenticationService implements AuthService {
   }
 
 
-  public getRole(): string{
-    let role: string;
-    this.tokenStorage.getAccessToken().subscribe((token) => {
-      role = jwtHelper.decodeToken(token).role;
-    });
-    return role;
+  public getRole(): Observable<string>{
+    return this.tokenStorage.getAccessToken().pipe(map(token => jwtHelper.decodeToken(token).role))
   }
 }

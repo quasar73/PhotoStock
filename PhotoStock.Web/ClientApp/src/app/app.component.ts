@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './shared/authentication/authentication.service';
 import { LoginStateService } from './shared/authentication/login-state.service';
+import { RoleStateService } from './shared/authentication/role-sate.service';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +15,16 @@ export class AppComponent implements OnInit {
   isUser: boolean;
 
   constructor(private authService: AuthenticationService,
-    private stateService: LoginStateService){}
+    private loginStateService: LoginStateService,
+    private roleStateService: RoleStateService){}
 
   ngOnInit(): void {
     this.authService.isAuthorized().subscribe((result) => this.isAuth = result);
-    this.isUser = this.authService.getRole() == 'user';
-    this.stateService.getUpdater().subscribe((state) => this.isAuth = state);
+    this.authService.getRole().subscribe((role) => this.isUser = role == 'user');
+    this.roleStateService.getUpdater().subscribe((role) => {
+      this.isUser = role == 'user';
+    })
+    this.loginStateService.getUpdater().subscribe((state) => this.isAuth = state);
   }
 
   logout(): void{

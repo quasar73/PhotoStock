@@ -22,9 +22,8 @@ namespace PhotoStock.Web.Controllers
     {
         private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
         private readonly UserManager<User> userManager;
-        private readonly ApplicationContext context;
 
-        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<User> userManager, ApplicationContext context)
+        public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<User> userManager)
         {
             this.jwtBearerTokenSettings = jwtTokenOptions.Value;
             this.userManager = userManager;
@@ -55,7 +54,7 @@ namespace PhotoStock.Web.Controllers
             User user;
             if (!ModelState.IsValid || loginVM == null || (user = (User)await ValidateUser(loginVM)) == null)
                 return new BadRequestObjectResult(new { Message = "Login failed" });
-            var token = GenerateToken(user);
+            var token = await GenerateToken(user);
             return Ok(new { Token = token, Message = "Success" });
         }
 
@@ -71,7 +70,7 @@ namespace PhotoStock.Web.Controllers
         }
 
 
-        private object GenerateToken(User identityUser)
+        private async Task<object> GenerateToken(User identityUser)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(jwtBearerTokenSettings.SecretKey);
@@ -81,7 +80,7 @@ namespace PhotoStock.Web.Controllers
                 {
                     new Claim(ClaimTypes.Name, identityUser.UserName.ToString()),
                     new Claim(ClaimTypes.Email, identityUser.Email),
-                    new Claim(ClaimTypes.Role, userManager.GetRolesAsync(identityUser)?.Result?.FirstOrDefault() ?? "user")
+                    new Claim(ClaimTypes.Role, (await userManager.GetRolesAsync(identityUser)).FirstOrDefault() ?? "user")
                 }),
                 Expires = DateTime.UtcNow.AddSeconds(jwtBearerTokenSettings.ExpiryTimeInSeconds),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),

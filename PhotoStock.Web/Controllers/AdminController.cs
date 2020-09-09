@@ -11,7 +11,7 @@ using PhotoStock.Logic.Services;
 
 namespace PhotoStock.Web.Controllers
 {
-    //[Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase

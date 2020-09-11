@@ -8,7 +8,8 @@
         <div>
           <a class="ml-3 text-light text-decoration-none" [routerLink]="'/'"> Home </a>
           <a class="ml-3 text-light text-decoration-none" [routerLink]="'/photo'"> Photo </a>
-          <a *ngIf="isAuth" class="ml-3 text-light text-decoration-none" [routerLink]="'/import'"> Import </a>
+          <a *ngIf="isAuth && isUser" class="ml-3 text-light text-decoration-none" [routerLink]="'/import'"> Import </a>
+          <a *ngIf="isAuth && !isUser" class="ml-3 text-light text-decoration-none" [routerLink]="'/admin'"> Admin panel </a>
           <a *ngIf="!isAuth" class="ml-3 text-light text-decoration-none" [routerLink]="'/account/login'"> Login </a>
           <a *ngIf="!isAuth" class="ml-3 text-light text-decoration-none" [routerLink]="'/account/registration'"> Registration </a>
           <a *ngIf="isAuth" (click)="logout()" class="ml-3 text-light text-decoration-none" [routerLink]="'/'"> Logout </a>

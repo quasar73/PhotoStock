@@ -6,15 +6,17 @@ import { AuthService } from 'ngx-auth';
 import { Login } from '../models/login.model';
 import { Registration } from '../models/registration.model';
 import { environment } from '../../../environments/environment';
-
+import { JwtHelperService } from "@auth0/angular-jwt";
 import { TokenStorage } from './token-storage.service';
+
+const jwtHelper = new JwtHelperService();
 
 interface AccessData {
   token: string;
   message: string;
 }
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthenticationService implements AuthService {
 
   constructor(
@@ -77,4 +79,8 @@ export class AuthenticationService implements AuthService {
       .setAccessToken(token);
   }
 
+
+  public getRole(): Observable<string>{
+    return this.tokenStorage.getAccessToken().pipe(map(token => jwtHelper.decodeToken(token).role))
+  }
 }

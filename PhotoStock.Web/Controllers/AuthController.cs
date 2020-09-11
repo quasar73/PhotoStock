@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PhotoStock.Common.ViewModels;
+using PhotoStock.DataBase;
+using System.Linq;
 
 namespace PhotoStock.Web.Controllers
 {
@@ -52,7 +54,7 @@ namespace PhotoStock.Web.Controllers
             User user;
             if (!ModelState.IsValid || loginVM == null || (user = (User)await ValidateUser(loginVM)) == null)
                 return new BadRequestObjectResult(new { Message = "Login failed" });
-            var token = GenerateToken(user);
+            var token = await GenerateToken(user);
             return Ok(new { Token = token, Message = "Success" });
         }
 
@@ -68,7 +70,7 @@ namespace PhotoStock.Web.Controllers
         }
 
 
-        private object GenerateToken(User identityUser)
+        private async Task<object> GenerateToken(User identityUser)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(jwtBearerTokenSettings.SecretKey);
@@ -77,7 +79,8 @@ namespace PhotoStock.Web.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, identityUser.UserName.ToString()),
-                    new Claim(ClaimTypes.Email, identityUser.Email)
+                    new Claim(ClaimTypes.Email, identityUser.Email),
+                    new Claim(ClaimTypes.Role, (await userManager.GetRolesAsync(identityUser)).FirstOrDefault() ?? "user")
                 }),
                 Expires = DateTime.UtcNow.AddSeconds(jwtBearerTokenSettings.ExpiryTimeInSeconds),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),

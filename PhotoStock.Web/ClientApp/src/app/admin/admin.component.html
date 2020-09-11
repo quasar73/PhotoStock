@@ -1,0 +1,20 @@
+<table mat-table [dataSource]="usersList" class="mat-elevation-z8 table">
+
+  <ng-container matColumnDef="userName">
+    <th mat-header-cell *matHeaderCellDef>UserName</th>
+    <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="numberOfImports">
+    <th mat-header-cell *matHeaderCellDef>Number of imports</th>
+    <td mat-cell *matCellDef="let element"> {{element.numberOfImports}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

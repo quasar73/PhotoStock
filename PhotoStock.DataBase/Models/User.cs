@@ -5,6 +5,6 @@ namespace PhotoStock.DataBase.Models
 {
 	public class User : IdentityUser
 	{
-		public List<Photo> Photos;
+		public virtual List<Photo> Photos { get; set; }
 	}
 }

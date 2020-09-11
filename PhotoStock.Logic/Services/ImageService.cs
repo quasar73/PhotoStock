@@ -1,4 +1,5 @@
-﻿using PhotoStock.Common;
+﻿using AutoMapper;
+using PhotoStock.Common;
 using PhotoStock.Common.ViewModels;
 using PhotoStock.DataBase.Models;
 using PhotoStock.DataBase.Repositories;
@@ -18,22 +19,11 @@ namespace PhotoStock.Logic.Services
         }
         public async Task<List<PhotoViewModel>> GetImagesAsync(Categories category)
         {
-            List<Photo> images;
-            if (category == Categories.Any)
-            {
-                images = await repository.GetListAsync();
-            }
-            else
-            {
-                images = await repository.GetByCategoryAsync(category);
-            }
-            return images.Select(photo => new PhotoViewModel()
-            {
-                Path = photo.Path,
-                Category = photo.Category,
-                UploadDate = photo.UploadDate,
-                UserName = photo.User.UserName
-            }).ToList(); ;
+            List<Photo> images = await (category == Categories.Any ? repository.GetListAsync() : repository.GetByCategoryAsync(category));
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Photo, PhotoViewModel>()
+            .ForMember(pvm => pvm.UserName, pvm => pvm.MapFrom(p => p.User.UserName)));
+            var mapper = new Mapper(config);
+            return mapper.Map<List<Photo>, List<PhotoViewModel>>(images);
         }
 	}
 }
